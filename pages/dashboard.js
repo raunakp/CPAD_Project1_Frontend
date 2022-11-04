@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     width:300,
     borderRadius:40,
     backgroundColor: "#e57723",
- pages },
+  },
   logout_button: {
     fontSize:18,
     fontWeight:"200",
