@@ -24,8 +24,7 @@ export default function StudentList(props) {
     return (
       <Box px={5} py={2} rounded="md" bg="primary.300" my={2}>
         <View>
-          <Text>{item.StudentID}</Text>
-          <Text>{item.Name}</Text>
+          <Text>{item.StudentID} | {item.Name} | Vaccinated: {(item.VaccinationStatus == 'DONE')? 'YES': 'NO'} </Text>
         </View>
       </Box>
     );
@@ -35,7 +34,7 @@ export default function StudentList(props) {
     <NativeBaseProvider mt={50}>
       <View style={styles.header}>
         <Text style={styles.header_name}>ALL STUDENTS</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => props.navigation.navigate('ManageStudents', { name: 'ManageStudents' })}>
             <Text style={styles.back_button}>back</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigation.navigate('Login', { name: 'Login' })}>
@@ -44,7 +43,6 @@ export default function StudentList(props) {
       </View>
       <Image style={styles.logo} source={require("./../assets/logo.png")} />
 
-      <View style={styles.appContainer}>
         <View style={styles.bodyContent}>
         </View>
         {loading && <Box>Loading..</Box>}
@@ -55,7 +53,6 @@ export default function StudentList(props) {
             keyExtractor={(item) => item.StudentID.toString()}
           />
         )}
-      </View>
 
     </NativeBaseProvider>
   );
