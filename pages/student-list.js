@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Pressable } from 'react-native'
 import React, { useState, useEffect } from "react";
 import { Box, FlatList, Center, NativeBaseProvider, Text } from "native-base";
 import { getStudents } from './../app-constants-apis';
@@ -20,11 +20,13 @@ export default function StudentList(props) {
 
   const renderItem = ({ item }) => {
     return (
-      <Box px={5} py={2} rounded="md" bg="primary.300" my={2}>
+      <Pressable onPress={() => props.navigation.navigate('StudentDetails', { name: 'StudentDetails', StudentID: item.StudentID })}>
+      <Box px={5} py={2} rounded="md" bg="primary.300" my={2} >
         <View>
           <Text>{item.StudentID} | {item.Name} | Vaccinated: {(item.VaccinationStatus == 'DONE')? item.VaccineType : 'NO'} </Text>
         </View>
       </Box>
+      </Pressable>
     );
   };
 

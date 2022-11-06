@@ -6,7 +6,7 @@ import {   ScrollView,
            Image,
            TouchableOpacity } from 'react-native';
 
-export default function App() {
+export default function StudentDetails() {
   return (
     <ScrollView>
           <View style={styles.container}>
@@ -17,7 +17,7 @@ export default function App() {
                 <Text style={styles.back_button}>back</Text>
               </TouchableOpacity>
             </View>
-            <Image style={styles.logo} source={require("./assets/logo.png")} />
+            <Image style={styles.logo} source={require("./../assets/logo.png")} />
             <View style={styles.body}>
               <View style={styles.bodyContent}>
                     <Text style={styles.name}>Student Id: </Text>
