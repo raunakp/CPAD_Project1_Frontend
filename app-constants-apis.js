@@ -8,6 +8,8 @@ export const getStudentWithId = host + '/api/student/'
 export const getVaccinatedStudents = host + '/api/students/vaccinated'
 export const getUnVaccinatedStudents = host + '/api/students/unvaccinated'
 
+export const updateStudent = host + '/api/student/'
+
 export const getReports = host + '/api/reports'
 
 export const getAllVaxDrives = host + '/api/vaccinationDrives'

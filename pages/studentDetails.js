@@ -6,12 +6,58 @@ import {   ScrollView,
            TouchableOpacity } from 'react-native';
 
 import React, { useState, useEffect } from "react";
-import { getStudentWithId, getDrivesForStudent } from './../app-constants-apis'
+import { getStudentWithId, getDrivesForStudent, updateStudent } from './../app-constants-apis'
 
 export default function StudentDetails(props) {
 
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
+
+  const handleMarkVaccinated = async () => {
+    setLoaded(false);
+    try {
+      const StudentID = props.navigation.state.params.StudentID
+      let updateStudentPath = updateStudent
+      updateStudentPath += (StudentID.toString())
+      console.log('** StudentDetails.handleMarkVaccinated.updateStudentPath: ' + updateStudentPath)
+      const response = await fetch(updateStudentPath, {
+        method: 'PUT',
+        body: JSON.stringify({
+            xStudentID: data.StudentID,
+            Name: data.Name,
+            Email: data.Email,
+            DoB: data.DoB,
+            AadharNumber: data.AadharNumber,
+            MobileNumber: data.MobileNumber,
+            Status: data.Status,
+            VaccinationStatus: "DONE",
+            VaccineType: "xCovidshield",
+            VaccinationWorkerId: "224",
+            VaccinationDate: "2022-11-06"
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      console.log('result is: ', JSON.stringify(result, null, 4));
+      result.isVaccinated = true
+      result.registered = false
+      setData(result);
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setLoaded(true);
+      fetchData();
+    }
+  };
 
   const fetchData = async () => {
     const StudentID = props.navigation.state.params.StudentID
@@ -69,7 +115,7 @@ export default function StudentDetails(props) {
                 <Text style={styles.name}>Vaccination Status {data.VaccinationStatus} </Text>
                 {
                   !data.isVaccinated &&
-                  <TouchableOpacity style={styles.buttonContainer} >
+                  <TouchableOpacity style={styles.buttonContainer} onPress={handleMarkVaccinated}>
                   <Text>MARK VACCINATED</Text>
                   </TouchableOpacity>
                 }
