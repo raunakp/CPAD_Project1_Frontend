@@ -1,14 +1,14 @@
 import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React, { useState, useEffect } from "react";
 import { Box, FlatList, Center, NativeBaseProvider, Text } from "native-base";
-import { getStudents } from './../app-constants-apis';
+import { getUnVaccinatedStudents } from './../app-constants-apis';
 
-export default function StudentList(props) {
+export default function UnvaxedStudentList(props) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
-    const resp = await fetch(getStudents);
+    const resp = await fetch(getUnVaccinatedStudents);
     const data = await resp.json();
     setData(data);
     setLoading(false);
@@ -22,7 +22,7 @@ export default function StudentList(props) {
     return (
       <Box px={5} py={2} rounded="md" bg="primary.300" my={2}>
         <View>
-          <Text>{item.StudentID} | {item.Name} | Vaccinated: {(item.VaccinationStatus == 'DONE')? item.VaccineType : 'NO'} </Text>
+          <Text>{item.StudentID} | {item.Name} | Vaccination: {item.VaccinationStatus} </Text>
         </View>
       </Box>
     );
@@ -31,7 +31,7 @@ export default function StudentList(props) {
   return (
     <NativeBaseProvider mt={50}>
       <View style={styles.header}>
-        <Text style={styles.header_name}>ALL STUDENTS</Text>
+        <Text style={styles.header_name}>Un-Vaccinated STUDENTS</Text>
         <TouchableOpacity onPress={() => props.navigation.navigate('ManageStudents', { name: 'ManageStudents' })}>
             <Text style={styles.back_button}>back</Text>
         </TouchableOpacity>

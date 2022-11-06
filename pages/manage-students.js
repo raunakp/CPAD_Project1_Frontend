@@ -49,10 +49,10 @@ export default function ManageStudents(props) {
             <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('StudentList', { name: 'StudentList'})}>
               <Text>All Students ({data.all})</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('VaxedStudentList', { name: 'VaxedStudentList'})}>
               <Text>VACCINATED Students ({data.vaccinated})</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('UnvaxedStudentList', { name: 'UnvaxedStudentList'})}>
               <Text>UN-VACCINATED Students ({data.unvaccinated})</Text>
             </TouchableOpacity>
           </View>
