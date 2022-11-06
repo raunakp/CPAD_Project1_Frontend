@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import {   ScrollView,
            StyleSheet,
            Text,
@@ -6,35 +5,93 @@ import {   ScrollView,
            Image,
            TouchableOpacity } from 'react-native';
 
-export default function StudentDetails() {
+import React, { useState, useEffect } from "react";
+import { getStudentWithId, getDrivesForStudent } from './../app-constants-apis'
+
+export default function StudentDetails(props) {
+
+  const [data, setData] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  const fetchData = async () => {
+    const StudentID = props.navigation.state.params.StudentID
+    console.log("** StudentDetails.fetchData: " + StudentID)
+    let path = getStudentWithId
+    path += (StudentID.toString())
+
+    let getDrivesPath = getDrivesForStudent
+    getDrivesPath += (StudentID.toString())
+
+    console.log("** StudentDetails.fetchData.path " + path)
+    const resp = await fetch(path);
+    const data = await resp.json();
+
+    const drivesResp = await fetch(getDrivesPath);
+    const drivesData = await drivesResp.json();
+
+    data.isVaccinated = (data.VaccinationStatus == 'DONE')
+    if (!data.isVaccinated) {
+      if (drivesData.length > 0) {
+        data.registered = true
+      } else {
+        data.registered = false
+      }
+    }
+
+    setData(data);
+
+    setLoaded(true);
+    console.log(data)
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <ScrollView>
-          <View style={styles.container}>
-            <View style={styles.header}>
-              <Text style={styles.header_name}>STUDENT DETAILS</Text>
-              <TouchableOpacity onPress={() => props.navigation.navigate('Login', { name: 'Login'})}>
-                <Text style={styles.logout_button}>logout</Text>
-                <Text style={styles.back_button}>back</Text>
-              </TouchableOpacity>
-            </View>
-            <Image style={styles.logo} source={require("./../assets/logo.png")} />
-            <View style={styles.body}>
-              <View style={styles.bodyContent}>
-                    <Text style={styles.name}>Student Id: </Text>
-                    <Text style={styles.name}>Student Name: </Text>
-                    <Text style={styles.name}>Vaccination Status</Text>
-                    <TouchableOpacity style={styles.buttonContainer} >
-                      <Text>MARK VACCINATED</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonContainer}  disabled= {true}>
-                      <Text>REGISTER FOR VACCINATION DRIVE</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonContainer}  disabled= {true}>
-                      <Text>UN-REGISTER FROM VACCINATION DRIVE</Text>
-                    </TouchableOpacity>
-              </View>
-            </View>
+      { loaded &&
+        <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.header_name}>STUDENT DETAILS</Text>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Login', { name: 'Login'})}>
+            <Text style={styles.back_button}>back</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate('StudentList', { name: 'StudentList'})}>
+          <Text style={styles.logout_button}>logout</Text>
+          </TouchableOpacity>
+        </View>
+        <Image style={styles.logo} source={require("./../assets/logo.png")} />
+        <View style={styles.body}>
+          <View style={styles.bodyContent}>
+                <Text style={styles.name}>Student Id: {data.StudentID} </Text>
+                <Text style={styles.name}>Student Name: {data.Name} </Text>
+                <Text style={styles.name}>Vaccination Status {data.VaccinationStatus} </Text>
+                {
+                  !data.isVaccinated &&
+                  <TouchableOpacity style={styles.buttonContainer} >
+                  <Text>MARK VACCINATED</Text>
+                  </TouchableOpacity>
+                }
+
+                {
+                  !data.isVaccinated && !data.registered &&
+                  <TouchableOpacity style={styles.buttonContainer}  disabled= {true}>
+                  <Text>REGISTER FOR VACCINATION DRIVE</Text>
+                  </TouchableOpacity>
+                }
+
+                {
+                  !data.isVaccinated && data.registered &&
+                  <TouchableOpacity style={styles.buttonContainer}  disabled= {true}>
+                  <Text>UN-REGISTER FROM VACCINATION DRIVE</Text>
+                </TouchableOpacity>
+                }
           </View>
+        </View>
+      </View>
+      }
+
         </ScrollView>
       );
 }
