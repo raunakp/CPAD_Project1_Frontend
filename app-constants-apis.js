@@ -6,3 +6,9 @@ export const fetchStudentCounts = host + '/api/student/counts'
 export const getStudents = host + '/api/students'
 export const getVaccinatedStudents = host + '/api/students/vaccinated'
 export const getUnVaccinatedStudents = host + '/api/students/unvaccinated'
+
+export const getReports = host + '/api/reports'
+
+export const getAllVaxDrives = host + '/api/vaccinationDrives'
+export const getPastVaxDrives = host + '/api/vaccinationDrives/past'
+export const getUpcomingVaxDrives = host + '/api/vaccinationDrives/upcoming'

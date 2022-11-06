@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,16 +8,32 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { getReports } from './../app-constants-apis';
+
 console.reportErrorsAsExceptions = false;
 
-export default function Dashboard(props) {
-  console.log(props)
-  const navigationOptions = {
-    title: "Dashboard"
-  }
+
+export default function ManageVaxDrives(props) {
+
+  const [data, setData] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  const fetchData = async () => {
+    console.log("fetchData")
+    const resp = await fetch(getReports);
+    const data = await resp.json();
+    console.log(data)
+    setData(data);
+    setLoaded(true);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView >
+      { loaded && <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => props.navigation.navigate('Login', { name: 'Login'})}>
             <Text style={styles.logout_button}>logout</Text>
@@ -26,20 +42,21 @@ export default function Dashboard(props) {
         <Image style={styles.logo} source={require("./../assets/logo.png")} />
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <Text style={styles.name}>Vaccination Dashboard</Text>
+            <Text style={styles.name}>Manage Vaccination Drives</Text>
 
-            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('ManageStudents', { name: 'ManageStudents'})}>
-              <Text>MANAGE STUDENTS</Text>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('AllVaxDrives', { name: 'AllVaxDrives'})}>
+              <Text>All Drives ({data.upcomingDrives + data.pastDrives})</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('ManageVaxDrives', { name: 'ManageVaxDrives'})}>
-              <Text>MANAGE VACCINATION DRIVE</Text>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('UpcomingVaxDrives', { name: 'UpcomingVaxDrives'})}>
+              <Text>Upcoming ({data.upcomingDrives})</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('Reports', { name: 'Reports'})}>
-              <Text>REPORTS</Text>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('PastVaxDrives', { name: 'PastVaxDrives'})}>
+              <Text>Past ({data.pastDrives})</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+    }
     </ScrollView>
   );
 }
@@ -71,7 +88,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 28,
     color: "#696969",
-    fontWeight: "600"
+    fontWeight: "600",
   },
   buttonContainer: {
     marginTop: 10,
