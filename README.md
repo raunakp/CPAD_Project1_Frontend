@@ -2,7 +2,7 @@
 
 Project name: SCHOOL VACCINATION TRACKER
 
-Backend Project Link: https://github.com/raunakp/CPAD_Project1_42_Backend
+Backend Project Link: https://github.com/raunakp/CPAD_Project_Vaccine_Backend
 
 ## Members
 
