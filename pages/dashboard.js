@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 
 export default function Dashboard(props) {
+  console.log(props)
   const navigationOptions = {
     title: "Dashboard"
   }
@@ -16,7 +17,7 @@ export default function Dashboard(props) {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => props.navigation.navigate('Login', { name: 'Login'})}>
             <Text style={styles.logout_button}>logout</Text>
           </TouchableOpacity>
         </View>
