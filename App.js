@@ -6,6 +6,7 @@ import {
 } from 'react-navigation';
 import Login from './pages/login.js'
 import Dashboard from './pages/dashboard.js'
+import ManageStudents from './pages/manage-students.js';
 
 const RootStack = createSwitchNavigator({
   Login: {
@@ -13,6 +14,9 @@ const RootStack = createSwitchNavigator({
 },
 Dashboard: {
   screen: Dashboard
+},
+ManageStudents: {
+  screen: ManageStudents
 }
 });
 

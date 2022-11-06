@@ -8,10 +8,10 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-export default function Dashboard(props) {
+export default function ManageStudents(props) {
   console.log(props)
   const navigationOptions = {
-    title: "Dashboard"
+    title: "Manage Students"
   }
   return (
     <ScrollView>
@@ -24,16 +24,16 @@ export default function Dashboard(props) {
         <Image style={styles.logo} source={require("./../assets/logo.png")} />
         <View style={styles.body}>
           <View style={styles.bodyContent}>
-            <Text style={styles.name}>Vaccination Dashboard</Text>
+            <Text style={styles.name}>Manage Students</Text>
 
-            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('ManageStudents', { name: 'ManageStudents'})}>
-              <Text>MANAGE STUDENTS</Text>
+            <TouchableOpacity style={styles.buttonContainer}>
+              <Text>All Students</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer}>
-              <Text>MANAGE VACCINATION DRIVE</Text>
+              <Text>VACCINATED Students</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer}>
-              <Text>REPORTS</Text>
+              <Text>UN-VACCINATED Students</Text>
             </TouchableOpacity>
           </View>
         </View>
