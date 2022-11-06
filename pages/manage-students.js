@@ -46,7 +46,7 @@ export default function ManageStudents(props) {
           <View style={styles.bodyContent}>
             <Text style={styles.name}>Manage Students</Text>
 
-            <TouchableOpacity style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => props.navigation.navigate('StudentList', { name: 'StudentList'})}>
               <Text>All Students ({data.all})</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer}>
