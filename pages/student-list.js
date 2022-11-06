@@ -34,11 +34,16 @@ export default function StudentList(props) {
   return (
     <NativeBaseProvider mt={50}>
       <View style={styles.header}>
+        <Text style={styles.header_name}>ALL STUDENTS</Text>
+        <TouchableOpacity>
+            <Text style={styles.back_button}>back</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigation.navigate('Login', { name: 'Login' })}>
           <Text style={styles.logout_button}>logout</Text>
         </TouchableOpacity>
       </View>
       <Image style={styles.logo} source={require("./../assets/logo.png")} />
+
       <View style={styles.appContainer}>
         <View style={styles.bodyContent}>
         </View>
@@ -105,4 +110,20 @@ const styles = StyleSheet.create({
     left: 270,
     top: 150,
   },
+  back_button: {
+     fontSize:18,
+     fontWeight:"200",
+     textDecorationLine: 'underline',
+     margin: 20,
+     left: 20,
+     top: 90,
+  },
+  header_name: {
+      fontSize:28,
+      color: "#4C4E52",
+      fontWeight: "800",
+      alignSelf:'center',
+      position: 'absolute',
+      top : 70,
+      },
 });
