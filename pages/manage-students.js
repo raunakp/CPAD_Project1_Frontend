@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 28,
     color: "#696969",
-    fontWeight: "600"
+    fontWeight: "600",
   },
   buttonContainer: {
     marginTop: 10,
