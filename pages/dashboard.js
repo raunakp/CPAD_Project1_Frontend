@@ -8,6 +8,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+console.reportErrorsAsExceptions = false;
+
 export default function Dashboard(props) {
   console.log(props)
   const navigationOptions = {

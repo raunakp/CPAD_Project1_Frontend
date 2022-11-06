@@ -8,6 +8,8 @@ import Login from './pages/login.js'
 import Dashboard from './pages/dashboard.js'
 import ManageStudents from './pages/manage-students.js';
 
+console.reportErrorsAsExceptions = false;
+
 const RootStack = createSwitchNavigator({
   Login: {
   screen: Login

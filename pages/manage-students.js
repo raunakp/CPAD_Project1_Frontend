@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,14 +8,34 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { fetchStudentCounts } from './../app-constants-apis';
+
+console.reportErrorsAsExceptions = false;
+
+
 export default function ManageStudents(props) {
+  console.log(fetchStudentCounts)
   console.log(props)
-  const navigationOptions = {
-    title: "Manage Students"
-  }
+
+  const [data, setData] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+
+  const fetchData = async () => {
+    console.log("fetchData")
+    const resp = await fetch(fetchStudentCounts);
+    const data = await resp.json();
+    console.log(data)
+    setData(data);
+    setLoaded(true);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <ScrollView >
+      { loaded && <View style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity onPress={() => props.navigation.navigate('Login', { name: 'Login'})}>
             <Text style={styles.logout_button}>logout</Text>
@@ -27,17 +47,18 @@ export default function ManageStudents(props) {
             <Text style={styles.name}>Manage Students</Text>
 
             <TouchableOpacity style={styles.buttonContainer}>
-              <Text>All Students</Text>
+              <Text>All Students ({data.all})</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer}>
-              <Text>VACCINATED Students</Text>
+              <Text>VACCINATED Students ({data.vaccinated})</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonContainer}>
-              <Text>UN-VACCINATED Students</Text>
+              <Text>UN-VACCINATED Students ({data.unvaccinated})</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
+    }
     </ScrollView>
   );
 }

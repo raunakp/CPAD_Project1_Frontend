@@ -12,6 +12,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+console.reportErrorsAsExceptions = false;
+
 export default function Login(props) {
   console.log(props)
   const [email, setEmail] = useState('');
