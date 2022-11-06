@@ -15,6 +15,7 @@ import ManageVaxDrives from './pages/manage-vax-drives.js'
 import AllVaxDrives from './pages/vax-drives-list.js'
 import PastVaxDrives from './pages/past-vax-drives-list.js'
 import UpcomingVaxDrives from './pages/upcoming-vax-drives-list.js'
+import StudentDetails from './pages/studentDetails.js'
 
 console.reportErrorsAsExceptions = false;
 
@@ -51,6 +52,9 @@ const RootStack = createSwitchNavigator({
   },
   PastVaxDrives: {
     screen: PastVaxDrives
+  },
+  StudentDetails: {
+    screen: StudentDetails
   }
 
 });
