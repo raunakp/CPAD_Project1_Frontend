@@ -23,11 +23,11 @@ Backend Project Link: https://github.com/raunakp/CPAD_Project_Vaccine_Backend
 | Path | Description | Comments |
 | ----------- | ----------- | ----------- |
 | assets | [./assets](./assets) | Images, etc. |
-| pages | [./pages/](./data/ecomm.db) | The sqlite db file. |
+| pages | [./pages](./pages) | The sqlite db file. |
 | package.json | [./package.json](./package.json) | Application dependencies |
 | app.json | [./app.json](./app.json) | App version & other details |
 | App.js | [./App.js](./App.js) | Application entry point, Screen route definitions |
-| app-constants-apis | [./app-constants-apis](./app-constants-apis) | API Paths - note the host part: "localhost:3090" - it is expected that your backend service is running for the frontend (ReactNative App to function correctly) |
+| app-constants-apis | [./app-constants-apis](./app-constants-apis.js) | API Paths - note the host part: "localhost:3090" - it is expected that your backend service is running for the frontend (ReactNative App to function correctly) |
 
 ## Run the project
 
